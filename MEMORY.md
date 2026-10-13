@@ -11,8 +11,10 @@ cifrada**.
 ## Estado actual
 - Fases 1–3 completas (hero, TV con estática, marquesina, carta, razones, secreto,
   timeline, footer TVs) + **Fase 4: galería cifrada**.
-- **Deploy**: `.github/workflows/deploy.yml` (Actions → Pages) en cada push a `main`.
-  `vite.config.ts` con `base: './'` (soporta subruta del proyecto).
+- **Desplegado y verificado en vivo**: `https://d4c-decay.github.io/blue-hour-love/`
+  (repo **público**, Pages vía `deploy.yml`, sin Cloudflare/Netlify). Home 200,
+  `photos-enc/*` 200, `photos/*` **404**; desbloqueo real con la contraseña → 13
+  imágenes, 0 errores. CI en verde.
 - **Galería privada** (`src/sections/gallery.ts` + `src/lib/crypto.ts`):
   - Fotos cifradas con **AES-256-GCM** + clave derivada por **PBKDF2-SHA256**
     (600k iteraciones, salt 16 B, IV 12 B) desde la contraseña.
@@ -36,14 +38,19 @@ cifrada**.
 
 ## Blockers
 - **`/etc/hosts`**: `api.github.com` apunta a la IP de `github.com` → `gh api`
-  falla. Arreglar quitando esa línea (requiere sudo). No afecta a `git push`.
+  falla. **Workaround usado** (sin sudo): `curl --resolve api.github.com:443:140.82.114.5`
+  con `$(gh auth token)` para `PATCH visibility` y `POST /pages`.
+  Arreglar quitando esa línea (requiere sudo). No afecta a `git push`.
 
 ## Próximo paso
-Verificar el deploy en GitHub Pages y confirmar el link
-`https://d4c-decay.github.io/blue-hour-love/`. Opcional: dominio propio, audio
-ambiente (Fase 4 opcional), o revisar EXIF de los originales.
+Proyecto terminado y desplegado. Opcionales: dominio propio, audio ambiente,
+revisar EXIF de los originales (las fotos ya están cifradas). Si se cambia la
+contraseña: `PHOTO_PASSWORD=... npm run photos:encrypt` y commit de
+`public/photos-enc/`.
 
 ## Log
 - 2026-10-12: galería cifrada (AES-GCM/PBKDF2) + deploy Pages + repo público;
-  historial purgado de `public/photos`. 11 unit + 5 e2e verdes; desbloqueo real
-  verificado en Chromium (13 imágenes, 0 errores).
+  historial purgado de `public/photos` (filter-branch + force-push); Pages
+  habilitado con build_type=workflow. 11 unit + 5 e2e verdes; desbloqueo real
+  verificado en Chromium local y en vivo (13 imágenes, 0 errores).
+  URL: https://d4c-decay.github.io/blue-hour-love/
