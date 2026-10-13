@@ -1,0 +1,21 @@
+:root {
+  --ink: #0a0a14;
+  --ink-2: #0f0f1e;
+  --ink-3: #15152a;
+  --violet: #1a1030;
+  --magenta: #ff2d9b;
+  --pink: #ff8ac6;
+  --cyan: #38e8ff;
+  --blue: #3a6bff;
+  --smoke: #f4f1ff;
+  --ash: #9a97b8;
+  --line: #2a2a44;
+
+  --font-display: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  --font-vhs: 'VT323', monospace;
+  --font-hand: 'Caveat', cursive;
+
+  --radius: 12px;
+  --shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.8);
+}

@@ -1,0 +1,14 @@
+node_modules
+dist
+playwright-report
+test-results
+.vscode
+.DS_Store
+*.log
+*.mp3
+!assets/placeholder.mp3
+.env
+public/photos/*  # se generarán con scripts/optimize-photos.mjs (no subir originales comprimidos)
+erd
+# mantener originales fuera del repo
+# los originales viven en ~/Escritorio/tvgirl
