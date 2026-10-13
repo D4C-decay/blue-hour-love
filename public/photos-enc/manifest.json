@@ -1,0 +1,87 @@
+{
+  "v": 1,
+  "algo": "AES-GCM",
+  "kdf": "PBKDF2-SHA256",
+  "iterations": 600000,
+  "salt": "ZPeysDAyTDP9UCV0DrzXqQ==",
+  "files": [
+    {
+      "id": "p01",
+      "enc": "p01.webp.enc",
+      "iv": "/6jVYL/K4KlSdfiw",
+      "bytes": 125062
+    },
+    {
+      "id": "p02",
+      "enc": "p02.webp.enc",
+      "iv": "7QBt2TZ20xkXDleU",
+      "bytes": 94108
+    },
+    {
+      "id": "p03",
+      "enc": "p03.webp.enc",
+      "iv": "2NQmhp3QHcyQGIfo",
+      "bytes": 126198
+    },
+    {
+      "id": "p04",
+      "enc": "p04.webp.enc",
+      "iv": "++hG30HufZwYFe+l",
+      "bytes": 112778
+    },
+    {
+      "id": "p05",
+      "enc": "p05.webp.enc",
+      "iv": "uKkCw4SRv+GrWE3f",
+      "bytes": 96160
+    },
+    {
+      "id": "p06",
+      "enc": "p06.webp.enc",
+      "iv": "GJpF6dIKk+FRVzPq",
+      "bytes": 54306
+    },
+    {
+      "id": "p07",
+      "enc": "p07.webp.enc",
+      "iv": "HRB8MsizAf6NYpj/",
+      "bytes": 51162
+    },
+    {
+      "id": "p08",
+      "enc": "p08.webp.enc",
+      "iv": "A3eCnU9hXcw0CcKV",
+      "bytes": 92292
+    },
+    {
+      "id": "p09",
+      "enc": "p09.webp.enc",
+      "iv": "q3Xe8xQWDh21u4n0",
+      "bytes": 57672
+    },
+    {
+      "id": "p10",
+      "enc": "p10.webp.enc",
+      "iv": "57HuWd6O5x3F7/LE",
+      "bytes": 59824
+    },
+    {
+      "id": "p11",
+      "enc": "p11.webp.enc",
+      "iv": "jhyCKqtlhLls5N2L",
+      "bytes": 59406
+    },
+    {
+      "id": "p12",
+      "enc": "p12.webp.enc",
+      "iv": "0F98OnXFZVp9M0DQ",
+      "bytes": 104184
+    },
+    {
+      "id": "p13",
+      "enc": "p13.webp.enc",
+      "iv": "UR0Rwf2/TiIMCdDv",
+      "bytes": 52506
+    }
+  ]
+}

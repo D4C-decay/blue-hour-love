@@ -15,6 +15,6 @@ test('revela mensaje al mantener pulsado el botón (fallback accesible)', async 
   await page.keyboard.down('Enter')
   // Espera a que la TV se sintonice (progreso lento; damos margen)
   await expect(page.locator('.tv.is-tuned .tv__message')).toBeVisible({ timeout: 7000 })
-  await expect(page.getByRole('status')).toContainText(/señal|sintonizar/i)
+  await expect(page.locator('.tv').getByRole('status')).toContainText(/señal|sintonizar/i)
   await page.keyboard.up('Enter')
 })

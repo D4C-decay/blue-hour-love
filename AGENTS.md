@@ -22,6 +22,10 @@ Proyecto web estático construido con **Vite + TypeScript + Vitest + Playwright*
 - Sin dependencias runtime innecesarias.
 - `noindex` obligatorio (privacidad).
 - Respeta `prefers-reduced-motion`.
+- **Fotos privadas**: nunca se commitean en claro. Solo `public/photos-enc/`
+  (ciphertext + `manifest.json`). El cifrado es client-side (AES-256-GCM +
+  PBKDF2) y la contraseña se pasa por `PHOTO_PASSWORD` a `npm run photos:encrypt`
+  y **nunca** se guarda en el repo.
 
 ## Testing adaptado al stack web
 - **Unit:** Vitest (helpers puros: `src/lib/signal.ts`, `config`).
@@ -30,8 +34,11 @@ Proyecto web estático construido con **Vite + TypeScript + Vitest + Playwright*
 - **Verificación CI:** build+lint+typecheck+unit+e2e.
 
 ## Seguridad/privacidad
-- Repo **privado**. Contenido no indexado. No exponer datos sensibles en commits.
-- Fotos: comprimir (WebP), **borrar EXIF** antes de incluirlas. No subir originales.
+- Repo **público** (requisito de GitHub Pages free). Todo el código es visible.
+- Contenido **no indexado** (`robots.txt`, meta, headers). Fotos **cifradas**.
+- No exponer secretos en commits (la contraseña de la galería vive solo fuera
+  del repo; se usa en `npm run photos:encrypt`).
+- Fotos: comprimir (WebP), **borrar EXIF** antes de cifrar. No subir originales.
 
 ## Referencia
-Ver `README.md` y `netlify.toml`.
+Ver `README.md` y `.github/workflows/deploy.yml`.

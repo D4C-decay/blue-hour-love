@@ -25,6 +25,17 @@ export interface LetterConfig {
   closeHint: string
 }
 
+export interface GalleryConfig {
+  title: string
+  hint: string
+  passwordLabel: string
+  unlock: string
+  loading: string
+  wrong: string
+  unlocked: string
+  alt: string
+}
+
 export interface LoveConfig {
   title: string
   to: string
@@ -36,6 +47,7 @@ export interface LoveConfig {
     message: string
   }
   letter: LetterConfig
+  gallery: GalleryConfig
   secret: string
   reasons: ReasonGroups
   reasonFinal: string
@@ -70,6 +82,16 @@ export const config: LoveConfig = {
       'Escribí esto pensando en ti. Gracias por cada momento, por tu paciencia ' +
       'y por quererme incluso cuando no es fácil. Eres mi persona favorita.',
     closeHint: 'Cerrar carta',
+  },
+  gallery: {
+    title: 'Nuestra galería',
+    hint: 'Estas fotos son solo nuestras. Escribe la contraseña para verlas.',
+    passwordLabel: 'Contraseña',
+    unlock: 'Desbloquear',
+    loading: 'Sintonizando recuerdos…',
+    wrong: 'Contraseña incorrecta. Inténtalo de nuevo.',
+    unlocked: 'Galería desbloqueada.',
+    alt: 'Un recuerdo nuestro',
   },
   secret: 'si pudiera volver a empezar, te elegiría a ti otra vez y sin dudarlo.',
   reasons: {

@@ -2,6 +2,7 @@ import './styles/tokens.css'
 import './styles/base.css'
 import './styles/sections.css'
 import './styles/fase2.css'
+import './styles/gallery.css'
 import { config } from './lib/config'
 import { initHero } from './sections/hero'
 import { initTvStatic } from './sections/tv-static'
@@ -13,6 +14,7 @@ import { initReasons } from './sections/reasons'
 import { initSecret } from './sections/secret'
 import { initTimeline } from './sections/timeline'
 import { initFooterTvs } from './sections/footer-tvs'
+import { initGallery } from './sections/gallery'
 import { initCursorGlitch } from './lib/cursor'
 
 const app = document.querySelector<HTMLElement>('#app')
@@ -27,6 +29,7 @@ if (app) {
   const secret = initSecret(config)
   const timeline = initTimeline(config)
   const footertvs = initFooterTvs(config)
+  const gallery = initGallery(config)
 
   app.append(
     hero.element,
@@ -37,6 +40,7 @@ if (app) {
     reasons.element,
     secret.element,
     timeline.element,
+    gallery.element,
     footertvs.element,
   )
 
@@ -49,6 +53,7 @@ if (app) {
   secret.start?.()
   timeline.start?.()
   footertvs.start?.()
+  gallery.start?.()
 
   initCursorGlitch()
   document.documentElement.classList.add('is-ready')

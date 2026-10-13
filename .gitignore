@@ -8,7 +8,8 @@ test-results
 *.mp3
 !assets/placeholder.mp3
 .env
-public/photos/*  # se generarán con scripts/optimize-photos.mjs (no subir originales comprimidos)
+# fotos originales/optimizadas: NO se suben
+public/photos/
 erd
 # mantener originales fuera del repo
 # los originales viven en ~/Escritorio/tvgirl
