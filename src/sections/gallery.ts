@@ -77,11 +77,10 @@ export function initGallery(cfg: LoveConfig): Section {
         created.push(url)
 
         const variant = galleryVariant(i)
-        const figure = el('figure', 'gallery__item')
-        figure.classList.add(`gallery__item--${variant.kind}`)
-        if (variant.broken) figure.classList.add('gallery__item--broken')
+        const figure = el('figure', 'gallery__item gallery__item--polaroid')
         if (variant.static) figure.classList.add('gallery__item--static')
-        if (variant.tilt) figure.style.setProperty('--tilt', `${variant.tilt}deg`)
+        if (variant.burn) figure.classList.add('gallery__item--burn')
+        figure.style.setProperty('--tilt', `${variant.tilt}deg`)
 
         const tape = el('span', 'gallery__tape')
         tape.setAttribute('aria-hidden', 'true')

@@ -6,28 +6,22 @@ describe('galleryVariant', () => {
     expect(galleryVariant(3)).toEqual(galleryVariant(3))
   })
 
-  it('reparte TVs, roturas y estática entre 13 recuerdos', () => {
+  it('reparte estática y quemaduras entre 13 polaroids', () => {
     const variants = Array.from({ length: 13 }, (_, i) => galleryVariant(i))
-    expect(variants.some((v) => v.kind === 'tv')).toBe(true)
-    expect(variants.some((v) => v.broken)).toBe(true)
     expect(variants.some((v) => v.static)).toBe(true)
+    expect(variants.some((v) => v.burn)).toBe(true)
   })
 
-  it('las TVs no se inclinan y las polaroids quedan en un rango suave', () => {
+  it('nunca marca estática y quemadura a la vez', () => {
     for (let i = 0; i < 13; i += 1) {
       const v = galleryVariant(i)
-      if (v.kind === 'tv') {
-        expect(v.tilt).toBe(0)
-      } else {
-        expect(Math.abs(v.tilt)).toBeLessThanOrEqual(3)
-      }
+      expect(v.static && v.burn).toBe(false)
     }
   })
 
-  it('nunca marca rota y estática a la vez', () => {
+  it('inclina todas las polaroids dentro de un rango suave', () => {
     for (let i = 0; i < 13; i += 1) {
-      const v = galleryVariant(i)
-      expect(v.broken && v.static).toBe(false)
+      expect(Math.abs(galleryVariant(i).tilt)).toBeLessThanOrEqual(3)
     }
   })
 })

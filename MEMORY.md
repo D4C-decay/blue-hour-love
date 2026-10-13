@@ -46,10 +46,12 @@ cifrada**.
   - Estilos en `src/styles/fase5.css` (importado en `main.ts`) + utilidad `.sr-only`.
 - **Fase 6 — mural, grietas y caras (esta sesión)**:
   - **Galería como mural** (`src/sections/gallery.ts` + `src/styles/gallery.css`):
-    las 13 fotos se reparten de forma **determinista** (`src/lib/gallery-layout.ts`,
-    patrón %7) en **11 polaroids** con cinta adhesiva y tilt y **2 TVs**; una va
-    **rota** (grietas SVG) y dos con **estática moderada** (escaneo + ruido a baja
-    opacidad, la imagen queda nítida). Muro con textura de tablón.
+    las 13 fotos son **polaroids** con cinta adhesiva y tilt, repartidas de forma
+    **determinista** (`src/lib/gallery-layout.ts`, patrón %7): algunas con
+    **estática moderada** (escaneo + ruido a baja opacidad; la imagen queda nítida)
+    y otras con **marcas de quemadura** en los bordes (`.gallery__item--burn::after`,
+    `mix-blend-mode: multiply`). Sin TVs ni grietas dentro de la galería. Muro con
+    textura de tablón.
   - **Grietas en el fondo** (`src/sections/cracks.ts`, `initCracks()` → `.page-cracks`
     fijo, `aria-hidden`, `mix-blend-mode:screen`) y **grieta sobre la pantalla de
     "Sintonizar"** (`#tv`), en `src/styles/fase6.css` (importado en `main.ts`).
@@ -99,13 +101,15 @@ contraseña: `PHOTO_PASSWORD=... npm run photos:encrypt` y commit de
 `public/photos-enc/`.
 
 ## Log
-- 2026-10-13: **Fase 6** — galería convertida en **mural** (11 polaroids con cinta +
-  2 TVs; 1 rota y 2 con estática moderada, repartidas por `src/lib/gallery-layout.ts`),
-  **grietas** en el fondo de la página (`src/sections/cracks.ts` + `fase6.css`) y en
-  la pantalla de "Sintonizar" (`#tv`); carta con la frase nueva; "¿Me amas?" con
-  caras **`._.`/`;-;`** y **corazón pequeño** que no tapa el mensaje, TV con 2 antenas.
-  Fix de CSS: `.gallery__grid[hidden]{display:none}` (el padding lo hacía visible).
-  19 unit + 10 e2e verdes (nuevos `gallery-layout.test.ts`, `letter.spec.ts`).
+- 2026-10-13: **Fase 6** — galería convertida en **mural de polaroids** con cinta
+  (estática moderada en algunas y **marcas de quemadura** en los bordes en otras,
+  repartidas por `src/lib/gallery-layout.ts`; sin TVs ni grietas dentro de la
+  galería), **grietas** en el fondo de la página (`src/sections/cracks.ts` +
+  `fase6.css`) y en la pantalla de "Sintonizar" (`#tv`); carta con la frase nueva;
+  "¿Me amas?" con caras **`._.`/`;-;`** y **corazón pequeño** que no tapa el mensaje,
+  TV con 2 antenas. Fix de CSS: `.gallery__grid[hidden]{display:none}` (el padding lo
+  hacía visible). 19 unit + 10 e2e verdes (nuevos `gallery-layout.test.ts`,
+  `letter.spec.ts`).
 - 2026-10-12: **Fase 5** — "¿Me amas?" con cara triste y corazón **8-bit** (fix
   real: `z-index` del "Sí", que el "No" esquivador bloqueaba) + lluvia de
   corazones; mensaje secreto como **radio** con antena y `scrambleFrame`; footer

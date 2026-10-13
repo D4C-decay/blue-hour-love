@@ -16,7 +16,7 @@ GitHub Pages: se publica desde la rama `main` vía GitHub Actions (ver más abaj
 - **Razones**: grupos "Cosas que amo de ti" y "Secretitos" como **TVs con estática** que se sintonizan al pulsar.
 - **Mensaje secreto**: una **radio** que se enciende al pulsar la antena (o agitar el móvil) y resuelve el texto entre estática.
 - **Timeline** y **Cementerio de televisiones** (con TVs rotas y antenas torcidas).
-- **Galería privada** cifrada (ver abajo): un **mural** de polaroids con cinta y TVs, algunas rotas o con estática.
+- **Galería privada** cifrada (ver abajo): un **mural** de polaroids con cinta, algunas con estática y otras con marcas de quemadura en los bordes.
 - Fondo con **grietas** (estética de cristal roto) y detalles VHS: intro "▶ PLAY" (una vez por sesión), indicador **REC ●** y favicon 8-bit.
 - Cursor con halo glitcheado (se desactiva con `prefers-reduced-motion`).
 
