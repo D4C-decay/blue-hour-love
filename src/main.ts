@@ -8,6 +8,11 @@ import { initTvStatic } from './sections/tv-static'
 import { initMarqueeSignal } from './sections/marquee-signal'
 import { initLetter } from './sections/letter'
 import { initLoveVhs } from './sections/love-vhs'
+
+import { initReasons } from './sections/reasons'
+import { initSecret } from './sections/secret'
+import { initTimeline } from './sections/timeline'
+import { initFooterTvs } from './sections/footer-tvs'
 import { initCursorGlitch } from './lib/cursor'
 
 const app = document.querySelector<HTMLElement>('#app')
@@ -18,6 +23,10 @@ if (app) {
   const marquee = initMarqueeSignal(config)
   const letter = initLetter(config)
   const love = initLoveVhs(config)
+  const reasons = initReasons(config)
+  const secret = initSecret(config)
+  const timeline = initTimeline(config)
+  const footertvs = initFooterTvs(config)
 
   app.append(
     hero.element,
@@ -25,6 +34,10 @@ if (app) {
     marquee.element,
     letter.element,
     love.element,
+    reasons.element,
+    secret.element,
+    timeline.element,
+    footertvs.element,
   )
 
   hero.start?.()
@@ -32,6 +45,10 @@ if (app) {
   marquee.start?.()
   letter.start?.()
   love.start?.()
+  reasons.start?.()
+  secret.start?.()
+  timeline.start?.()
+  footertvs.start?.()
 
   initCursorGlitch()
   document.documentElement.classList.add('is-ready')

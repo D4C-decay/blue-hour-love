@@ -250,3 +250,106 @@
   pointer-events: none;
   opacity: 0.5;
 }
+
+/* Reasons */
+.reasons {
+  width: min(94vw, 72rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+}
+.reasons__title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin: 0;
+  color: var(--cyan);
+}
+.reasons__subtitle {
+  font-family: var(--font-vhs);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--pink);
+  margin: 0 0 1rem 0;
+}
+.reasons__flipgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.flipcard {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--smoke);
+  cursor: pointer;
+  perspective: 800px;
+}
+.flipcard__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+}
+.flipcard__face--back {
+  transform: rotateY(180deg);
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+}
+.flipcard.is-flipped .flipcard__face--front { transform: rotateY(-180deg); }
+.flipcard.is-flipped .flipcard__face--back { transform: rotateY(0deg); }
+
+.deck { position: relative; min-height: 200px; }
+.deck__card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  transition: transform 0.5s ease;
+  transform: translateX(calc(var(--i)*12px)) scale(calc(1 - 0.08*abs(var(--i))));
+}
+.deck__nav { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+.deck__btn { appearance: none; border: 1px solid rgba(255,255,255,0.25); background: transparent; color: var(--smoke); padding: 0.5rem 1rem; border-radius: 999px; cursor: pointer; }
+.deck__dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; }
+.deck__dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+.deck__dot.is-active { background: var(--cyan); }
+
+.reasons__scratchgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; }
+.scratchcard { position: relative; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; }
+.scratchcard__reveal { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0.75rem; font-family: var(--font-hand); }
+.scratchcard__cover { position: absolute; inset: 0; background: radial-gradient(circle at 50% 30%, #222, #000); display: flex; align-items: center; justify-content: center; color: var(--smoke); font-family: var(--font-vhs); transition: opacity 0.6s ease; }
+
+/* Secret */
+.secret { text-align: center; }
+.secret__title { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.3em; color: var(--cyan); }
+.secret__msg { font-family: var(--font-hand); font-size: 1.6rem; }
+
+/* Timeline */
+.timeline { text-align: center; }
+.timeline__title { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.3em; color: var(--pink); }
+.timeline__list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.timeline__item { display: flex; flex-direction: column; gap: 0.25rem; }
+.timeline__label { font-family: var(--font-vhs); text-transform: uppercase; letter-spacing: 0.25em; color: var(--cyan); }
+.timeline__text { font-family: var(--font-hand); font-size: 1.2rem; }
+
+/* Footer TVs */
+.footertvs { text-align: center; }
+.footertvs__title { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.3em; color: var(--magenta); }
+.footertvs__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
+.footertv { appearance: none; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: linear-gradient(180deg, #111, #000); color: var(--smoke); cursor: pointer; }
+.footertv__screen { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+.footertv__text { font-size: 0.8rem; font-family: var(--font-vhs); }
