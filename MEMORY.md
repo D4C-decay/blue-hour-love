@@ -101,6 +101,9 @@ contraseña: `PHOTO_PASSWORD=... npm run photos:encrypt` y commit de
 `public/photos-enc/`.
 
 ## Log
+- 2026-10-13: **Canción** — "Nuestra canción" del casete pasa de "Not Allowed" (TV Girl)
+  a **"Hey Ya!" (OutKast)** en `src/lib/config.ts` (solo `song`: title/artist/youtubeUrl).
+  Sin cambios de código ni de tests (el casete lee de config). 19 unit + 10 e2e verdes.
 - 2026-10-13: **Fase 6** — galería convertida en **mural de polaroids** con cinta
   (estática moderada en algunas y **marcas de quemadura** en los bordes en otras,
   repartidas por `src/lib/gallery-layout.ts`; sin TVs ni grietas dentro de la

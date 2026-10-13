@@ -70,9 +70,9 @@ export const config: LoveConfig = {
     'a tu lado las cosas no son perfectas, pero prefiero un amor verdadero ' +
     'contigo a cualquier otra cosa con otra persona',
   song: {
-    title: 'Not Allowed',
-    artist: 'TV Girl',
-    youtubeUrl: 'https://www.youtube.com/results?search_query=TV+Girl+Not+Allowed',
+    title: 'Hey Ya!',
+    artist: 'OutKast',
+    youtubeUrl: 'https://www.youtube.com/results?search_query=OutKast+Hey+Ya',
   },
   tvStatic: {
     hint: 'Agita el teléfono o mantén pulsada la pantalla para sintonizar',
