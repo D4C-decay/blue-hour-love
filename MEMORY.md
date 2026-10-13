@@ -22,6 +22,28 @@ cifrada**.
     **mantener pulsado**; antes solo soportaba manteniendo y fallaba con un toque.
   - **"¿Me amas?"** (`love-vhs.ts`): al pulsar **Sí** aparece un mensaje en la TV
     (`config.loveVhs.message`), además del corazón.
+- **Fase 5 — visuales 8-bit, radio y cementerio (esta sesión)**:
+  - **"¿Me amas?"** (`love-vhs.ts`): el botón "Sí" **no respondía** porque el "No"
+    esquiva con `translate3d` hasta los límites de la ventana y, al pasar el ratón,
+    caía encima; arreglado con `position: relative; z-index: 2` en `.lovevhs__btn--yes`.
+    Ahora al decir **Sí** aparece una **cara triste 8-bit** (SVG `shape-rendering:
+    crispEdges`, parpadeo + lágrima) que da paso a un **corazón rojo 8-bit**, más
+    **lluvia de corazones** (`src/lib/hearts.ts`, `celebrateHearts`). El "No" rota
+    etiquetas (`config.loveVhs.noLabels`).
+  - **Pixel-art** (`src/lib/pixel-art.ts`): `pixelSvg`, `sadFaceSvg`, `heartSvg`
+    (SVG nítido, sin dependencias).
+  - **Mensaje secreto** (`secret.ts`): reescrito como **radio**; al pulsar la
+    **antena** (o agitar el móvil) la estática se resuelve en el mensaje con
+    `scrambleFrame` (`src/lib/scramble.ts`, rAF ~3.6 s; reduced-motion instantáneo).
+  - **Cementerio de televisiones** (`footer-tvs.ts`, antes "Vertedero"): TVs
+    rotas (pantalla agrietada, carcasa inclinada) y **antenas torcidas**; al pulsar
+    una rota hace un glitch.
+  - **Extras**: intro VHS "▶ PLAY" (`src/sections/intro.ts`, `sessionStorage`,
+    `pointer-events:none`), **"Nuestra canción"** en casete que enlaza a YouTube
+    (`src/sections/song.ts`, usa `config.song`), indicador **REC ●**
+    (`src/sections/rec.ts`), **favicon 8-bit** (`public/favicon.svg`) y lluvia de
+    corazones al desbloquear la galería.
+  - Estilos en `src/styles/fase5.css` (importado en `main.ts`) + utilidad `.sr-only`.
 - **Desplegado y verificado en vivo**: `https://d4c-decay.github.io/blue-hour-love/`
   (repo **público**, Pages vía `deploy.yml`, sin Cloudflare/Netlify). Home 200,
   `photos-enc/*` 200, `photos/*` **404**; desbloqueo real con la contraseña → 13
@@ -35,8 +57,8 @@ cifrada**.
     `PHOTO_PASSWORD=...`). IDs opacos (`p01…p13`) para no filtrar fechas.
   - Descifrado en el navegador (Web Crypto) tras escribir la contraseña; la
     contraseña **no** está en el repo.
-- Tests: **11 unit** (config, signal, crypto) + **6 e2e** (home, a11y, gallery,
-  reasons).
+- Tests: **15 unit** (config, signal, crypto, scramble) + **8 e2e** (home, a11y,
+  gallery, reasons, love-vhs).
 - CI `ci.yml` (typecheck/lint/build/unit/e2e chromium) + `deploy.yml` (Pages).
 
 ## Decisiones
@@ -61,6 +83,12 @@ contraseña: `PHOTO_PASSWORD=... npm run photos:encrypt` y commit de
 `public/photos-enc/`.
 
 ## Log
+- 2026-10-12: **Fase 5** — "¿Me amas?" con cara triste y corazón **8-bit** (fix
+  real: `z-index` del "Sí", que el "No" esquivador bloqueaba) + lluvia de
+  corazones; mensaje secreto como **radio** con antena y `scrambleFrame`; footer
+  como **Cementerio de televisiones** (rotas + antenas torcidas); extras (intro
+  "▶ PLAY", canción-casete, REC, favicon 8-bit); frases nuevas de razones/secretitos.
+  15 unit + 8 e2e verdes (nuevos `scramble.test.ts`, `love-vhs.spec.ts`).
 - 2026-10-12: rediseño de razones (flip+scratch → TVs con estática; se elimina el
   mazo "Momentos que atesoro"), mensaje secreto con **agitar el teléfono**
   (`src/lib/shake.ts`), y mensaje en la TV al pulsar "Sí" en "¿Me amas?".

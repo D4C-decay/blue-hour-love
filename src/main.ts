@@ -3,11 +3,15 @@ import './styles/base.css'
 import './styles/sections.css'
 import './styles/fase2.css'
 import './styles/gallery.css'
+import './styles/fase5.css'
 import { config } from './lib/config'
+import { initIntro } from './sections/intro'
+import { initRec } from './sections/rec'
 import { initHero } from './sections/hero'
 import { initTvStatic } from './sections/tv-static'
 import { initMarqueeSignal } from './sections/marquee-signal'
 import { initLetter } from './sections/letter'
+import { initSong } from './sections/song'
 import { initLoveVhs } from './sections/love-vhs'
 
 import { initReasons } from './sections/reasons'
@@ -20,10 +24,15 @@ import { initCursorGlitch } from './lib/cursor'
 const app = document.querySelector<HTMLElement>('#app')
 
 if (app) {
+  const intro = initIntro()
+  document.body.append(intro)
+  document.body.append(initRec())
+
   const hero = initHero(config)
   const tv = initTvStatic(config)
   const marquee = initMarqueeSignal(config)
   const letter = initLetter(config)
+  const song = initSong(config)
   const love = initLoveVhs(config)
   const reasons = initReasons(config)
   const secret = initSecret(config)
@@ -36,6 +45,7 @@ if (app) {
     tv.element,
     marquee.element,
     letter.element,
+    song.element,
     love.element,
     reasons.element,
     secret.element,
@@ -48,6 +58,7 @@ if (app) {
   tv.start?.()
   marquee.start?.()
   letter.start?.()
+  song.start?.()
   love.start?.()
   reasons.start?.()
   secret.start?.()

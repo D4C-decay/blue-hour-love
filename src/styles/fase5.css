@@ -1,0 +1,531 @@
+/* Fase 5 — pixel-art, radio, cementerio, intro, corazones, REC, canción. */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- ¿Me amas? : cara triste y corazón 8-bit --- */
+.pixel-sad,
+.pixel-heart {
+  width: clamp(4rem, 40%, 9rem);
+  line-height: 0;
+}
+.pixel-sad svg,
+.pixel-heart svg,
+.heart-rain__item svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.pixel-sad {
+  position: relative;
+  animation: sad-bob 3s ease-in-out infinite;
+  transition: opacity 0.5s ease;
+}
+.pixel-sad__tear {
+  position: absolute;
+  left: 34%;
+  top: 40%;
+  width: 12%;
+  height: 16%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: tear-drop 2.4s ease-in infinite;
+}
+.pixel-heart {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  animation: heart-pulse 1.1s ease-in-out infinite;
+}
+.lovevhs.is-yes .pixel-sad {
+  opacity: 0;
+  visibility: hidden;
+}
+.lovevhs.is-yes .pixel-heart {
+  opacity: 1;
+  transform: scale(1);
+}
+@keyframes sad-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5%);
+  }
+}
+@keyframes tear-drop {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(150%) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* --- Radio del mensaje secreto --- */
+.secret {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.secret__hint {
+  font-family: var(--font-vhs);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--ash);
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  margin: 0;
+  text-align: center;
+}
+.radio {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3.5rem;
+}
+.radio__antenna {
+  position: absolute;
+  top: -3.5rem;
+  left: 62%;
+  width: 16px;
+  height: 7.5rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: rotate(14deg);
+  transform-origin: bottom center;
+}
+.radio__antenna-rod {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 4px;
+  height: 100%;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--smoke), var(--ash));
+}
+.radio__antenna-tip {
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 14px var(--cyan);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.radio__antenna:hover .radio__antenna-tip,
+.radio__antenna:focus-visible .radio__antenna-tip {
+  transform: scale(1.35);
+  box-shadow: 0 0 22px var(--cyan);
+}
+.radio__body {
+  position: relative;
+  width: min(90vw, 30rem);
+  padding: 1.25rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, #1a1830, #0c0b1a);
+  box-shadow: 0 60px 130px -50px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.radio__dial {
+  width: 3.5rem;
+  height: 0.9rem;
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line) 0 2px,
+    transparent 2px 6px
+  );
+}
+.radio__display {
+  position: relative;
+  min-height: 9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(56, 232, 255, 0.25);
+  background: #05050c;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+.radio__static {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  animation: radio-static 0.45s steps(5) infinite;
+}
+.radio__msg {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: clamp(1.05rem, 3vw, 1.5rem);
+  line-height: 1.3;
+  color: var(--smoke);
+  opacity: 0;
+  transition: opacity 0.6s ease, color 0.6s ease;
+}
+@keyframes radio-static {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 120px -120px;
+  }
+}
+.secret.is-tuning .radio__static {
+  opacity: 0.55;
+  animation-duration: 0.12s;
+}
+.secret.is-tuning .radio__msg {
+  opacity: 1;
+  color: var(--cyan);
+}
+.secret.is-tuned .radio__static {
+  opacity: 0;
+}
+.secret.is-tuned .radio__msg {
+  opacity: 1;
+  color: var(--smoke);
+  text-shadow: 0 0 30px rgba(56, 232, 255, 0.5);
+}
+.radio__grille {
+  height: 2.2rem;
+  border-radius: 8px;
+  opacity: 0.5;
+  background-image: radial-gradient(circle, var(--ash) 1px, transparent 1.6px);
+  background-size: 8px 8px;
+}
+.radio__knobs {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.radio__knob {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(circle at 35% 30%, #3a3860, #14122a);
+}
+
+/* --- Cementerio de televisiones --- */
+.footertv {
+  position: relative;
+  overflow: visible;
+  padding-top: 1.1rem;
+}
+.footertv__antenna {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 1.1rem;
+  margin-left: -1px;
+  background: linear-gradient(180deg, var(--ash), transparent);
+  transform: rotate(var(--antenna-tilt, -8deg));
+  transform-origin: bottom center;
+}
+.footertv__antenna::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--ash);
+}
+.footertv--broken {
+  transform: rotate(var(--tilt, 0deg));
+}
+.footertv--broken .footertv__screen {
+  position: relative;
+  background: radial-gradient(circle at 50% 40%, #15151f, #05050c);
+}
+.footertv--broken .footertv__screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 47%, rgba(255, 255, 255, 0.55) 48%, transparent 49%),
+    linear-gradient(205deg, transparent 60%, rgba(255, 255, 255, 0.35) 61%, transparent 62%),
+    linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.3) 31%, transparent 32%);
+}
+.footertv.is-glitch .footertv__text {
+  text-shadow: -1px 0 var(--magenta), 1px 0 var(--cyan);
+  animation: glitch-shift 0.32s steps(2) infinite;
+}
+@keyframes glitch-shift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+}
+
+/* --- Canción (casete) --- */
+.song {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+.song__title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--cyan);
+  margin: 0;
+}
+.cassette {
+  position: relative;
+  width: min(84vw, 24rem);
+  aspect-ratio: 3 / 2;
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, #1c1a33, #0d0c1c);
+  box-shadow: 0 50px 110px -50px rgba(0, 0, 0, 0.9);
+  color: var(--smoke);
+  text-decoration: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.cassette:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 60px 120px -50px rgba(255, 45, 155, 0.8);
+}
+.cassette__label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-vhs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+}
+.cassette__title {
+  color: var(--cyan);
+}
+.cassette__artist {
+  color: var(--pink);
+  font-size: 0.7rem;
+}
+.cassette__window {
+  position: relative;
+  margin: 0 auto;
+  width: 78%;
+  aspect-ratio: 3 / 1;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cassette__reels {
+  display: flex;
+  gap: 2.2rem;
+}
+.cassette__reel {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  background: radial-gradient(circle, #0b0b18 30%, transparent 31%);
+}
+.cassette:hover .cassette__reel {
+  animation: reel-spin 1.2s linear infinite;
+}
+@keyframes reel-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.cassette__holes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.1rem;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 10px,
+    rgba(255, 255, 255, 0.12) 10px 12px
+  );
+}
+.song__hint {
+  font-family: var(--font-vhs);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--ash);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* --- Corazones 8-bit --- */
+.heart-rain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  pointer-events: none;
+}
+.heart-rain__item {
+  position: absolute;
+  top: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  line-height: 0;
+  animation: heart-fall var(--duration, 2.4s) linear var(--delay, 0s) forwards;
+}
+@keyframes heart-fall {
+  0% {
+    transform: translateY(-12vh) scale(var(--scale, 1)) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(115vh) scale(var(--scale, 1)) rotate(220deg);
+    opacity: 0;
+  }
+}
+
+/* --- Intro VHS --- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #05050c;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.intro.is-done {
+  opacity: 0;
+}
+.intro__play {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-vhs);
+  font-size: clamp(2.5rem, 12vw, 6rem);
+  letter-spacing: 0.2em;
+  color: var(--smoke);
+  text-shadow: 0 0 24px var(--cyan);
+}
+.intro__track {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 3px,
+    rgba(56, 232, 255, 0.09) 3px 5px
+  );
+  animation: intro-track 1.2s steps(8) infinite;
+}
+@keyframes intro-track {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(8px);
+  }
+}
+
+/* --- Indicador REC --- */
+.rec {
+  position: fixed;
+  top: 1rem;
+  left: 1.1rem;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  pointer-events: none;
+  font-family: var(--font-vhs);
+  letter-spacing: 0.22em;
+  color: var(--smoke);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+}
+.rec__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff2f45;
+  box-shadow: 0 0 14px #ff2f45;
+  animation: rec-blink 1.4s steps(1) infinite;
+}
+@keyframes rec-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-sad,
+  .pixel-heart,
+  .pixel-sad__tear,
+  .radio__static,
+  .footertv.is-glitch .footertv__text,
+  .cassette:hover .cassette__reel,
+  .intro__track,
+  .rec__dot {
+    animation: none;
+  }
+  .intro__track {
+    display: none;
+  }
+}

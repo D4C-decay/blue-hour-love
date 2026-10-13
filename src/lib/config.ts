@@ -47,6 +47,7 @@ export interface LoveConfig {
   }
   loveVhs: {
     message: string
+    noLabels: string[]
   }
   letter: LetterConfig
   gallery: GalleryConfig
@@ -79,7 +80,8 @@ export const config: LoveConfig = {
       'De todas las señales del mundo, la única que quiero sintonizar es la tuya.',
   },
   loveVhs: {
-    message: 'Sabía que dirías que sí ❤',
+    message: 'Sabía que dirías que sí',
+    noLabels: ['No', '¿Segura?', '¿Segura, segura?', '¿Última oportunidad?', 'Piénsalo bien…'],
   },
   letter: {
     prompt: 'Abre la carta',
@@ -98,10 +100,11 @@ export const config: LoveConfig = {
     unlocked: 'Galería desbloqueada.',
     alt: 'Un recuerdo nuestro',
   },
-  secret: 'si pudiera volver a empezar, te elegiría a ti otra vez y sin dudarlo.',
+  secret:
+    'podrán existir mil y una películas de amor, pero ninguna tendrá el mismo valor que una que hagamos juntos',
   reasons: {
-    flip: ['Por tu sonrisa...', 'Por cómo me escuchas...', 'Por tu forma de ver el mundo...', 'Por tu ternura...', 'Por tu fuerza...', 'Porque contigo lo simple es especial'],
-    scratch: ['Me enamoré antes de saberlo', 'Pienso en ti al despertar', 'Eres mi lugar favorito', 'Quiero envejecer a tu lado', 'La casualidad más bonita', 'Te elegiría una y otra vez'],
+    flip: ['Por cómo iluminas mis días grises', 'Por la calma que me da tenerte cerca', 'Por tu risa, mi sonido favorito', 'Por cómo me entiendes sin explicaciones', 'Por tu forma de cuidarme sin pedirlo', 'Porque contigo todo se siente como casa'],
+    scratch: ['Tu mano buscando la mía bajo las mesas', 'Sentir el calor de tu piel contra la mía', 'Tu voz bajita diciendo mi nombre', 'Tus roces que me estremecen', 'La calidez de tus besos pasionales'],
   },
   reasonFinal: '…y mil razones más ❤',
   timeline: [

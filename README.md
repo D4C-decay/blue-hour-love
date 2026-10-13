@@ -11,9 +11,13 @@ GitHub Pages: se publica desde la rama `main` vía GitHub Actions (ver más abaj
 - **Hero**: saludo, título con aberración cromática y frase escrita sola.
 - **TV con estática**: se "sintoniza" al **agitar el móvil** o **mantener pulsado** el botón. Al sintonizar, revela un mensaje.
 - **Marquesina + medidor VHS** y **carta** que se escribe al abrir el sobre.
-- **Razones**: tarjetas que se voltean, mazo deslizable y rasca y gana.
-- **Mensaje secreto**, **timeline** y **footer de TVs**.
+- **Nuestra canción**: un casete 8-bit que enlaza a YouTube (usa `config.song`).
+- **¿Me amas?**: botón "No" que esquiva con etiquetas rotativas; al pulsar "Sí" aparece un **corazón 8-bit** y llueven corazones.
+- **Razones**: grupos "Cosas que amo de ti" y "Secretitos" como **TVs con estática** que se sintonizan al pulsar.
+- **Mensaje secreto**: una **radio** que se enciende al pulsar la antena (o agitar el móvil) y resuelve el texto entre estática.
+- **Timeline** y **Cementerio de televisiones** (con TVs rotas y antenas torcidas).
 - **Galería privada** cifrada (ver abajo).
+- Detalles VHS: intro "▶ PLAY" (una vez por sesión), indicador **REC ●** y favicon 8-bit.
 - Cursor con halo glitcheado (se desactiva con `prefers-reduced-motion`).
 
 ## Galería privada (cifrada)

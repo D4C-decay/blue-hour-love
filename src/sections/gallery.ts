@@ -1,4 +1,5 @@
 import { el } from '../lib/dom'
+import { celebrateHearts } from '../lib/hearts'
 import type { LoveConfig } from '../lib/config'
 import type { Section } from './hero'
 import {
@@ -92,6 +93,7 @@ export function initGallery(cfg: LoveConfig): Section {
       hint.hidden = true
       status.classList.remove('is-error')
       status.textContent = cfg.gallery.unlocked
+      celebrateHearts()
     } catch {
       revoke()
       status.classList.add('is-error')

@@ -15,10 +15,10 @@ test('razones: TVs con estática revelan al pulsar y no existe el mazo', async (
   await firstTv.click()
   await expect(firstTv).toHaveClass(/is-tuned/)
   await expect(firstTv.locator('.minitv__msg')).toBeVisible()
-  await expect(firstTv.locator('.minitv__msg')).toHaveText(/Por tu sonrisa/)
+  await expect(firstTv.locator('.minitv__msg')).toHaveText(/Por cómo iluminas/)
 
   const secondGroupTv = reasons.locator('.reasons__group').nth(1).locator('.minitv').first()
   await secondGroupTv.click()
   await expect(secondGroupTv.locator('.minitv__msg')).toBeVisible()
-  await expect(secondGroupTv.locator('.minitv__msg')).toHaveText(/Me enamoré antes/)
+  await expect(secondGroupTv.locator('.minitv__msg')).toHaveText(/Tu mano buscando/)
 })
