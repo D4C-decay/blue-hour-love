@@ -11,6 +11,17 @@ cifrada**.
 ## Estado actual
 - Fases 1–3 completas (hero, TV con estática, marquesina, carta, razones, secreto,
   timeline, footer TVs) + **Fase 4: galería cifrada**.
+- **Rediseño de razones + mensaje secreto (esta sesión)**:
+  - "Cosas que amo de ti" y "Secretitos" ahora son **televisores con estática**
+    (`createStaticTv` en `reasons.ts`): **pulsar** sintoniza (~0.6 s) y revela el
+    mensaje; con `prefers-reduced-motion` revela al instante. Sin canvas por
+    tarjeta (estática **CSS**, ruido SVG + `steps()`), 12 TVs en total.
+  - Se **eliminó** la sección "Momentos que atesoro" (mazo) y su `deck` del config.
+  - **Mensaje secreto** (`secret.ts`): revela al **agitar el teléfono**
+    (`src/lib/shake.ts`, con `requestPermission` de iOS en el primer gesto) o al
+    **mantener pulsado**; antes solo soportaba manteniendo y fallaba con un toque.
+  - **"¿Me amas?"** (`love-vhs.ts`): al pulsar **Sí** aparece un mensaje en la TV
+    (`config.loveVhs.message`), además del corazón.
 - **Desplegado y verificado en vivo**: `https://d4c-decay.github.io/blue-hour-love/`
   (repo **público**, Pages vía `deploy.yml`, sin Cloudflare/Netlify). Home 200,
   `photos-enc/*` 200, `photos/*` **404**; desbloqueo real con la contraseña → 13
@@ -24,7 +35,8 @@ cifrada**.
     `PHOTO_PASSWORD=...`). IDs opacos (`p01…p13`) para no filtrar fechas.
   - Descifrado en el navegador (Web Crypto) tras escribir la contraseña; la
     contraseña **no** está en el repo.
-- Tests: **11 unit** (config, signal, crypto) + **5 e2e** (home, a11y, gallery).
+- Tests: **11 unit** (config, signal, crypto) + **6 e2e** (home, a11y, gallery,
+  reasons).
 - CI `ci.yml` (typecheck/lint/build/unit/e2e chromium) + `deploy.yml` (Pages).
 
 ## Decisiones
@@ -49,6 +61,10 @@ contraseña: `PHOTO_PASSWORD=... npm run photos:encrypt` y commit de
 `public/photos-enc/`.
 
 ## Log
+- 2026-10-12: rediseño de razones (flip+scratch → TVs con estática; se elimina el
+  mazo "Momentos que atesoro"), mensaje secreto con **agitar el teléfono**
+  (`src/lib/shake.ts`), y mensaje en la TV al pulsar "Sí" en "¿Me amas?".
+  11 unit + 6 e2e verdes; typecheck/lint/build en verde. Nuevo e2e `reasons.spec.ts`.
 - 2026-10-12: galería cifrada (AES-GCM/PBKDF2) + deploy Pages + repo público;
   historial purgado de `public/photos` (filter-branch + force-push); Pages
   habilitado con build_type=workflow. 11 unit + 5 e2e verdes; desbloqueo real

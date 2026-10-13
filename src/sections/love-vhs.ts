@@ -13,7 +13,9 @@ export function initLoveVhs(_cfg: LoveConfig): Section {
   const screen = el('div', 'lovevhs__screen')
   const heart = el('div', 'lovevhs__heart', '❤')
   heart.setAttribute('aria-hidden', 'true')
-  screen.append(heart)
+  const message = el('p', 'lovevhs__msg', _cfg.loveVhs.message)
+  message.setAttribute('aria-hidden', 'true')
+  screen.append(heart, message)
 
   const cassette = el('div', 'lovevhs__cassette')
   const yes = el('button', 'lovevhs__btn lovevhs__btn--yes', 'Sí')
@@ -40,6 +42,7 @@ export function initLoveVhs(_cfg: LoveConfig): Section {
     root.classList.add('is-yes')
     yes.disabled = true
     no.disabled = true
+    message.setAttribute('aria-hidden', 'false')
     setTimeout(() => {
       heart.style.animationPlayState = 'running'
       heart.classList.add('is-pulse')

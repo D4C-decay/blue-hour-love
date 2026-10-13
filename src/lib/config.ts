@@ -10,7 +10,6 @@ export interface Song {
 
 export interface ReasonGroups {
   flip: string[]
-  deck: string[]
   scratch: string[]
 }
 
@@ -46,6 +45,9 @@ export interface LoveConfig {
     hint: string
     message: string
   }
+  loveVhs: {
+    message: string
+  }
   letter: LetterConfig
   gallery: GalleryConfig
   secret: string
@@ -76,6 +78,9 @@ export const config: LoveConfig = {
     message:
       'De todas las señales del mundo, la única que quiero sintonizar es la tuya.',
   },
+  loveVhs: {
+    message: 'Sabía que dirías que sí ❤',
+  },
   letter: {
     prompt: 'Abre la carta',
     text:
@@ -96,7 +101,6 @@ export const config: LoveConfig = {
   secret: 'si pudiera volver a empezar, te elegiría a ti otra vez y sin dudarlo.',
   reasons: {
     flip: ['Por tu sonrisa...', 'Por cómo me escuchas...', 'Por tu forma de ver el mundo...', 'Por tu ternura...', 'Por tu fuerza...', 'Porque contigo lo simple es especial'],
-    deck: ['Risas hasta llorar', 'Conversaciones de madrugada', 'Sueños compartidos', 'Silencios cómodos', 'Abrazos que dicen todo', 'Miradas sin hablar'],
     scratch: ['Me enamoré antes de saberlo', 'Pienso en ti al despertar', 'Eres mi lugar favorito', 'Quiero envejecer a tu lado', 'La casualidad más bonita', 'Te elegiría una y otra vez'],
   },
   reasonFinal: '…y mil razones más ❤',

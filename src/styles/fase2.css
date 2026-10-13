@@ -188,8 +188,12 @@
   border-radius: 12px;
   background: radial-gradient(circle at 50% 50%, rgba(255, 45, 155, 0.12), transparent 70%);
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 0.75rem;
 }
 
 .lovevhs__heart {
@@ -205,6 +209,18 @@
 .lovevhs.is-yes .lovevhs__heart {
   opacity: 1;
   transform: scale(1);
+}
+
+.lovevhs__msg {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.lovevhs.is-yes .lovevhs__msg {
+  opacity: 1;
 }
 
 @keyframes heart-pulse {
@@ -273,65 +289,107 @@
   color: var(--pink);
   margin: 0 0 1rem 0;
 }
-.reasons__flipgrid {
+.reasons__tvgrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.9rem;
 }
-.flipcard {
+.minitv {
+  appearance: none;
   position: relative;
   aspect-ratio: 4 / 3;
-  border: 1px solid rgba(255,255,255,0.2);
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  background: transparent;
+  background: #05050c;
   color: var(--smoke);
   cursor: pointer;
-  perspective: 800px;
+  overflow: hidden;
+  touch-action: manipulation;
 }
-.flipcard__face {
+.minitv__screen {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  border-radius: 12px;
-  backface-visibility: hidden;
-  transition: transform 0.6s ease;
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  padding: 0.85rem;
+  text-align: center;
 }
-.flipcard__face--back {
-  transform: rotateY(180deg);
+.minitv__static {
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  animation: tv-static 0.4s steps(5) infinite;
+}
+.minitv__static::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgba(0, 0, 0, 0.5) 2px 4px
+  );
+}
+.minitv__hint {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.4rem;
+  font-family: var(--font-vhs);
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  color: var(--cyan);
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+.minitv__msg {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-hand);
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+  line-height: 1.3;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-.flipcard.is-flipped .flipcard__face--front { transform: rotateY(-180deg); }
-.flipcard.is-flipped .flipcard__face--back { transform: rotateY(0deg); }
-
-.deck { position: relative; min-height: 200px; }
-.deck__card {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  transition: transform 0.5s ease;
-  transform: translateX(calc(var(--i)*12px)) scale(calc(1 - 0.08*abs(var(--i))));
+.minitv.is-tuning .minitv__static {
+  animation-duration: 0.1s;
 }
-.deck__nav { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
-.deck__btn { appearance: none; border: 1px solid rgba(255,255,255,0.25); background: transparent; color: var(--smoke); padding: 0.5rem 1rem; border-radius: 999px; cursor: pointer; }
-.deck__dots { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; }
-.deck__dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); }
-.deck__dot.is-active { background: var(--cyan); }
-
-.reasons__scratchgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; }
-.scratchcard { position: relative; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; }
-.scratchcard__reveal { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0.75rem; font-family: var(--font-hand); }
-.scratchcard__cover { position: absolute; inset: 0; background: radial-gradient(circle at 50% 30%, #222, #000); display: flex; align-items: center; justify-content: center; color: var(--smoke); font-family: var(--font-vhs); transition: opacity 0.6s ease; }
+.minitv.is-tuned .minitv__static {
+  opacity: 0;
+}
+.minitv.is-tuned .minitv__hint {
+  opacity: 0;
+}
+.minitv.is-tuned .minitv__msg {
+  opacity: 1;
+  transform: none;
+}
+.minitv:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+@keyframes tv-static {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 120px -120px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .minitv__static {
+    animation: none;
+  }
+  .minitv__msg {
+    transition: none;
+  }
+}
 
 /* Secret */
 .secret { text-align: center; }
