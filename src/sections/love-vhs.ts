@@ -1,5 +1,5 @@
 import { el, prefersReducedMotion } from '../lib/dom'
-import { sadFaceSvg, heartSvg } from '../lib/pixel-art'
+import { neutralFaceSvg, cryingFaceSvg, heartSvg } from '../lib/pixel-art'
 import { celebrateHearts } from '../lib/hearts'
 import type { LoveConfig } from '../lib/config'
 import type { Section } from './hero'
@@ -12,13 +12,17 @@ export function initLoveVhs(cfg: LoveConfig): Section {
   const wrap = el('div', 'lovevhs__wrap')
 
   const tv = el('div', 'lovevhs__tv')
+
+  const antennaA = el('span', 'lovevhs__antenna lovevhs__antenna--straight')
+  antennaA.setAttribute('aria-hidden', 'true')
+  const antennaB = el('span', 'lovevhs__antenna lovevhs__antenna--bent')
+  antennaB.setAttribute('aria-hidden', 'true')
+
   const screen = el('div', 'lovevhs__screen')
 
-  const sad = el('div', 'pixel-sad')
-  sad.innerHTML = sadFaceSvg()
-  sad.setAttribute('aria-hidden', 'true')
-  const tear = el('span', 'pixel-sad__tear')
-  sad.append(tear)
+  const face = el('div', 'pixel-face')
+  face.innerHTML = neutralFaceSvg()
+  face.setAttribute('aria-hidden', 'true')
 
   const heart = el('div', 'pixel-heart')
   heart.innerHTML = heartSvg()
@@ -27,8 +31,8 @@ export function initLoveVhs(cfg: LoveConfig): Section {
   const message = el('p', 'lovevhs__msg', cfg.loveVhs.message)
   message.setAttribute('aria-hidden', 'true')
 
-  screen.append(sad, heart, message)
-  tv.append(screen)
+  screen.append(face, heart, message)
+  tv.append(antennaA, antennaB, screen)
 
   const cassette = el('div', 'lovevhs__cassette')
   const yes = el('button', 'lovevhs__btn lovevhs__btn--yes', 'Sí')
@@ -41,6 +45,12 @@ export function initLoveVhs(cfg: LoveConfig): Section {
   const labels = cfg.loveVhs.noLabels.length > 0 ? cfg.loveVhs.noLabels : ['No']
   let labelIndex = 0
   let dodging = false
+
+  function cry() {
+    if (root.classList.contains('is-cry')) return
+    root.classList.add('is-cry')
+    face.innerHTML = cryingFaceSvg()
+  }
 
   function dodge() {
     if (dodging) return
@@ -55,6 +65,11 @@ export function initLoveVhs(cfg: LoveConfig): Section {
     setTimeout(() => (dodging = false), 350)
   }
 
+  function dodgeAndCry() {
+    cry()
+    dodge()
+  }
+
   let answered = false
   function onYes() {
     if (answered) return
@@ -66,12 +81,16 @@ export function initLoveVhs(cfg: LoveConfig): Section {
     celebrateHearts()
   }
 
-  no.addEventListener('pointerover', dodge)
-  no.addEventListener('focus', dodge)
+  no.addEventListener('pointerover', dodgeAndCry)
+  no.addEventListener('focus', dodgeAndCry)
+  no.addEventListener('click', (e) => {
+    e.preventDefault()
+    dodgeAndCry()
+  })
   no.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      dodge()
+      dodgeAndCry()
     }
   })
   yes.addEventListener('click', onYes)

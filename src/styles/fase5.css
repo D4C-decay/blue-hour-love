@@ -12,47 +12,33 @@
   border: 0;
 }
 
-/* --- ¿Me amas? : cara triste y corazón 8-bit --- */
-.pixel-sad,
+/* --- ¿Me amas? : cara 8-bit (._. / ;-;) y corazón --- */
+.pixel-face,
 .pixel-heart {
-  width: clamp(4rem, 40%, 9rem);
   line-height: 0;
 }
-.pixel-sad svg,
+.pixel-face {
+  width: clamp(3.5rem, 34%, 7rem);
+  animation: sad-bob 3s ease-in-out infinite;
+}
+.pixel-heart {
+  width: clamp(2.25rem, 20%, 4rem);
+  display: none;
+  transform: scale(0.6);
+  animation: heart-pulse 1.1s ease-in-out infinite;
+}
+.pixel-face svg,
 .pixel-heart svg,
 .heart-rain__item svg {
   width: 100%;
   height: auto;
   display: block;
 }
-.pixel-sad {
-  position: relative;
-  animation: sad-bob 3s ease-in-out infinite;
-  transition: opacity 0.5s ease;
-}
-.pixel-sad__tear {
-  position: absolute;
-  left: 34%;
-  top: 40%;
-  width: 12%;
-  height: 16%;
-  background: var(--cyan);
-  box-shadow: 0 0 8px var(--cyan);
-  animation: tear-drop 2.4s ease-in infinite;
-}
-.pixel-heart {
-  position: absolute;
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  animation: heart-pulse 1.1s ease-in-out infinite;
-}
-.lovevhs.is-yes .pixel-sad {
-  opacity: 0;
-  visibility: hidden;
+.lovevhs.is-yes .pixel-face {
+  display: none;
 }
 .lovevhs.is-yes .pixel-heart {
-  opacity: 1;
+  display: block;
   transform: scale(1);
 }
 @keyframes sad-bob {
@@ -64,18 +50,52 @@
     transform: translateY(-5%);
   }
 }
-@keyframes tear-drop {
-  0% {
-    transform: translateY(0) scale(0.8);
-    opacity: 0;
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(150%) scale(1.1);
-    opacity: 0;
-  }
+
+/* Antenas y grieta del televisor de "¿Me amas?" */
+.lovevhs__tv {
+  overflow: visible;
+}
+.lovevhs__antenna {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 3px;
+  height: clamp(40px, 12vw, 72px);
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--ash), var(--smoke));
+  transform-origin: bottom center;
+}
+.lovevhs__antenna::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+}
+.lovevhs__antenna--straight {
+  transform: translateX(-150%) rotate(-3deg);
+}
+.lovevhs__antenna--bent {
+  transform: translateX(60%) rotate(30deg);
+}
+.lovevhs__screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Cg fill='none' stroke='%23bfe9ff' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M120 0 L112 36 L124 62 L108 96 L118 150'/%3E%3Cpath d='M112 36 L78 50 L56 44'/%3E%3Cpath d='M124 62 L156 74 L178 66'/%3E%3Cpath d='M108 96 L72 112 L48 104'/%3E%3Cpath d='M118 150 L146 138'/%3E%3C/g%3E%3C/svg%3E")
+    center / 82% 100% no-repeat;
+}
+.lovevhs__msg {
+  z-index: 2;
 }
 
 /* --- Radio del mensaje secreto --- */
@@ -515,9 +535,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pixel-sad,
+  .pixel-face,
   .pixel-heart,
-  .pixel-sad__tear,
   .radio__static,
   .footertv.is-glitch .footertv__text,
   .cassette:hover .cassette__reel,

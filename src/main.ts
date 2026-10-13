@@ -4,8 +4,10 @@ import './styles/sections.css'
 import './styles/fase2.css'
 import './styles/gallery.css'
 import './styles/fase5.css'
+import './styles/fase6.css'
 import { config } from './lib/config'
 import { initIntro } from './sections/intro'
+import { initCracks } from './sections/cracks'
 import { initRec } from './sections/rec'
 import { initHero } from './sections/hero'
 import { initTvStatic } from './sections/tv-static'
@@ -27,6 +29,7 @@ if (app) {
   const intro = initIntro()
   document.body.append(intro)
   document.body.append(initRec())
+  document.body.append(initCracks())
 
   const hero = initHero(config)
   const tv = initTvStatic(config)

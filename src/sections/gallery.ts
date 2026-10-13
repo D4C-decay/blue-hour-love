@@ -1,5 +1,6 @@
 import { el } from '../lib/dom'
 import { celebrateHearts } from '../lib/hearts'
+import { galleryVariant } from '../lib/gallery-layout'
 import type { LoveConfig } from '../lib/config'
 import type { Section } from './hero'
 import {
@@ -62,7 +63,7 @@ export function initGallery(cfg: LoveConfig): Section {
 
       const figures: HTMLElement[] = []
       const created: string[] = []
-      for (const file of manifest.files) {
+      for (const [i, file] of manifest.files.entries()) {
         const res = await fetch(assetUrl(`photos-enc/${file.enc}`), {
           cache: 'no-store',
         })
@@ -75,13 +76,29 @@ export function initGallery(cfg: LoveConfig): Section {
         const url = URL.createObjectURL(blob)
         created.push(url)
 
+        const variant = galleryVariant(i)
         const figure = el('figure', 'gallery__item')
+        figure.classList.add(`gallery__item--${variant.kind}`)
+        if (variant.broken) figure.classList.add('gallery__item--broken')
+        if (variant.static) figure.classList.add('gallery__item--static')
+        if (variant.tilt) figure.style.setProperty('--tilt', `${variant.tilt}deg`)
+
+        const tape = el('span', 'gallery__tape')
+        tape.setAttribute('aria-hidden', 'true')
+
+        const frame = el('div', 'gallery__frame')
+
         const img = el('img', 'gallery__img')
         img.src = url
         img.loading = 'lazy'
         img.decoding = 'async'
         img.alt = cfg.gallery.alt
-        figure.append(img)
+
+        const overlay = el('span', 'gallery__overlay')
+        overlay.setAttribute('aria-hidden', 'true')
+
+        frame.append(img, overlay)
+        figure.append(tape, frame)
         figures.push(figure)
       }
 

@@ -102,20 +102,35 @@
 
 .gallery__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-  gap: clamp(0.5rem, 2vw, 1rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
   width: 100%;
+  padding: clamp(1rem, 4vw, 2rem);
+  align-items: start;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at 20% 12%, rgba(56, 232, 255, 0.07), transparent 55%),
+    radial-gradient(circle at 82% 85%, rgba(255, 45, 155, 0.07), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 22px, transparent 22px 44px),
+    linear-gradient(180deg, #101020, #0a0a14);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.6);
+}
+
+.gallery__grid[hidden] {
+  display: none;
 }
 
 .gallery__item {
   position: relative;
   margin: 0;
+  overflow: visible;
+}
+
+.gallery__frame {
+  position: relative;
+  display: block;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  background: rgba(10, 10, 20, 0.6);
-  box-shadow: var(--shadow);
 }
 
 .gallery__img {
@@ -132,12 +147,123 @@
   filter: saturate(1.15) contrast(1.05);
 }
 
+/* Cinta adhesiva */
+.gallery__tape {
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  z-index: 3;
+  width: 4.5rem;
+  height: 1.4rem;
+  transform: translateX(-50%) rotate(-3deg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.3));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  opacity: 0.85;
+}
+
+.gallery__item:nth-child(even) .gallery__tape {
+  transform: translateX(-50%) rotate(4deg);
+}
+
+.gallery__item--tv .gallery__tape {
+  display: none;
+}
+
+/* Instantánea polaroid sobre el muro */
+.gallery__item--polaroid {
+  padding: 0.6rem 0.6rem 2.2rem;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #fbfaf7, #ece7dd);
+  box-shadow: 0 18px 30px -18px rgba(0, 0, 0, 0.85), 0 4px 10px -4px rgba(0, 0, 0, 0.6);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery__item--polaroid .gallery__frame {
+  border-radius: 1px;
+  background: #05050c;
+}
+
+.gallery__item--polaroid:hover {
+  transform: rotate(var(--tilt, 0deg)) translateY(-4px) scale(1.02);
+  box-shadow: 0 28px 44px -20px rgba(0, 0, 0, 0.9);
+}
+
+/* Recuerdo dentro de una TV pequeña */
+.gallery__item--tv {
+  padding: 0.9rem 0.9rem 1.6rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(180deg, #1a1830, #0c0b1a);
+  box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.gallery__item--tv::before {
+  content: '';
+  position: absolute;
+  top: -1.6rem;
+  left: 50%;
+  width: 2px;
+  height: 1.6rem;
+  background: linear-gradient(180deg, var(--ash), transparent);
+  transform: rotate(-16deg);
+  transform-origin: bottom center;
+}
+
+.gallery__item--tv .gallery__frame {
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #05050c;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* Efectos: estática moderada y rotura */
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.gallery__item--static .gallery__overlay {
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.9) 0 1px,
+      transparent 1px 3px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: auto, 140px 140px;
+  animation: gallery-static 0.7s steps(6) infinite;
+}
+
+.gallery__item--broken .gallery__overlay {
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3E%3Cg fill='none' stroke='%23cfeeff' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M60 0 L74 30 L64 58 L82 92 L72 150'/%3E%3Cpath d='M74 30 L104 42 L128 36'/%3E%3Cpath d='M64 58 L34 72 L14 64'/%3E%3Cpath d='M82 92 L112 108 L138 100'/%3E%3Cpath d='M72 150 L96 138'/%3E%3C/g%3E%3C/svg%3E")
+    center / 92% 100% no-repeat;
+}
+
+@keyframes gallery-static {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 0 6px, 40px -30px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .gallery__button,
-  .gallery__img {
+  .gallery__img,
+  .gallery__item--polaroid {
     transition: none;
   }
   .gallery__item:hover .gallery__img {
     transform: none;
+  }
+  .gallery__item--static .gallery__overlay {
+    animation: none;
   }
 }

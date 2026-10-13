@@ -85,9 +85,7 @@ export const config: LoveConfig = {
   },
   letter: {
     prompt: 'Abre la carta',
-    text:
-      'Escribí esto pensando en ti. Gracias por cada momento, por tu paciencia ' +
-      'y por quererme incluso cuando no es fácil. Eres mi persona favorita.',
+    text: 'Eres mi vicio más oscuro y mi obsesión más hermosa, te amo con la certeza egoísta de que me perteneces hasta los huesos',
     closeHint: 'Cerrar carta',
   },
   gallery: {

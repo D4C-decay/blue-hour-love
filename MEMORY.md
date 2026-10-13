@@ -30,8 +30,8 @@ cifrada**.
     crispEdges`, parpadeo + lágrima) que da paso a un **corazón rojo 8-bit**, más
     **lluvia de corazones** (`src/lib/hearts.ts`, `celebrateHearts`). El "No" rota
     etiquetas (`config.loveVhs.noLabels`).
-  - **Pixel-art** (`src/lib/pixel-art.ts`): `pixelSvg`, `sadFaceSvg`, `heartSvg`
-    (SVG nítido, sin dependencias).
+  - **Pixel-art** (`src/lib/pixel-art.ts`): `pixelSvg`, `neutralFaceSvg`,
+    `cryingFaceSvg`, `heartSvg` (SVG nítido, sin dependencias).
   - **Mensaje secreto** (`secret.ts`): reescrito como **radio**; al pulsar la
     **antena** (o agitar el móvil) la estática se resuelve en el mensaje con
     `scrambleFrame` (`src/lib/scramble.ts`, rAF ~3.6 s; reduced-motion instantáneo).
@@ -44,6 +44,22 @@ cifrada**.
     (`src/sections/rec.ts`), **favicon 8-bit** (`public/favicon.svg`) y lluvia de
     corazones al desbloquear la galería.
   - Estilos en `src/styles/fase5.css` (importado en `main.ts`) + utilidad `.sr-only`.
+- **Fase 6 — mural, grietas y caras (esta sesión)**:
+  - **Galería como mural** (`src/sections/gallery.ts` + `src/styles/gallery.css`):
+    las 13 fotos se reparten de forma **determinista** (`src/lib/gallery-layout.ts`,
+    patrón %7) en **11 polaroids** con cinta adhesiva y tilt y **2 TVs**; una va
+    **rota** (grietas SVG) y dos con **estática moderada** (escaneo + ruido a baja
+    opacidad, la imagen queda nítida). Muro con textura de tablón.
+  - **Grietas en el fondo** (`src/sections/cracks.ts`, `initCracks()` → `.page-cracks`
+    fijo, `aria-hidden`, `mix-blend-mode:screen`) y **grieta sobre la pantalla de
+    "Sintonizar"** (`#tv`), en `src/styles/fase6.css` (importado en `main.ts`).
+  - **Carta**: `config.letter.text` con la frase nueva ("…mi obsesión más hermosa,
+    te amo con la certeza egoísta…").
+  - **"¿Me amas?"** (`love-vhs.ts`): cara **neutra `._.`** por defecto; al
+    interactuar con el **"No"** pasa a **`;-;`** (llorando) y el botón se mueve; al
+    **"Sí"**, un **corazón 8-bit pequeño** aparece en el flujo de la pantalla (sin
+    tapar el mensaje). TV con **2 antenas** (una recta, una torcida). `is-cry`/
+    `is-yes` en `src/styles/fase5.css`.
 - **Desplegado y verificado en vivo**: `https://d4c-decay.github.io/blue-hour-love/`
   (repo **público**, Pages vía `deploy.yml`, sin Cloudflare/Netlify). Home 200,
   `photos-enc/*` 200, `photos/*` **404**; desbloqueo real con la contraseña → 13
@@ -57,8 +73,8 @@ cifrada**.
     `PHOTO_PASSWORD=...`). IDs opacos (`p01…p13`) para no filtrar fechas.
   - Descifrado en el navegador (Web Crypto) tras escribir la contraseña; la
     contraseña **no** está en el repo.
-- Tests: **15 unit** (config, signal, crypto, scramble) + **8 e2e** (home, a11y,
-  gallery, reasons, love-vhs).
+- Tests: **19 unit** (config, signal, crypto, scramble, gallery-layout) + **10 e2e**
+  (home, a11y, gallery, reasons, secret, love-vhs, letter).
 - CI `ci.yml` (typecheck/lint/build/unit/e2e chromium) + `deploy.yml` (Pages).
 
 ## Decisiones
@@ -83,6 +99,13 @@ contraseña: `PHOTO_PASSWORD=... npm run photos:encrypt` y commit de
 `public/photos-enc/`.
 
 ## Log
+- 2026-10-13: **Fase 6** — galería convertida en **mural** (11 polaroids con cinta +
+  2 TVs; 1 rota y 2 con estática moderada, repartidas por `src/lib/gallery-layout.ts`),
+  **grietas** en el fondo de la página (`src/sections/cracks.ts` + `fase6.css`) y en
+  la pantalla de "Sintonizar" (`#tv`); carta con la frase nueva; "¿Me amas?" con
+  caras **`._.`/`;-;`** y **corazón pequeño** que no tapa el mensaje, TV con 2 antenas.
+  Fix de CSS: `.gallery__grid[hidden]{display:none}` (el padding lo hacía visible).
+  19 unit + 10 e2e verdes (nuevos `gallery-layout.test.ts`, `letter.spec.ts`).
 - 2026-10-12: **Fase 5** — "¿Me amas?" con cara triste y corazón **8-bit** (fix
   real: `z-index` del "Sí", que el "No" esquivador bloqueaba) + lluvia de
   corazones; mensaje secreto como **radio** con antena y `scrambleFrame`; footer

@@ -22,7 +22,9 @@ export function pixelSvg(grid: string[], palette: Palette): string {
   )
 }
 
-const SAD_FACE = [
+const FACE = 'var(--cyan, #38e8ff)'
+
+const NEUTRAL_FACE = [
   '.....fffff.....',
   '...fffffffff...',
   '..fffffffffff..',
@@ -31,13 +33,41 @@ const SAD_FACE = [
   '.ffoofffffooff.',
   '.fffffffffffff.',
   '.fffffffffffff.',
-  '......ooo......',
-  '.fffooofffooofff.',
+  '.fffffffffffff.',
+  '...ooooooooo...',
   '.fffffffffffff.',
   '..fffffffffff..',
   '...fffffffff...',
   '.....fffff.....',
 ]
+
+const CRYING_FACE = [
+  '.....fffff.....',
+  '...fffffffff...',
+  '..fffffffffff..',
+  '.fffffffffffff.',
+  '.ffoofffffooff.',
+  '.fffffffffffff.',
+  '.ffftffffftfff.',
+  '.ffftffffftfff.',
+  '.fffffffffffff.',
+  '.....ooooo.....',
+  '.....ooooo.....',
+  '.fffffffffffff.',
+  '..fffffffffff..',
+  '...fffffffff...',
+  '.....fffff.....',
+]
+
+/** Cara neutra `._.` (ojos de punto y boca recta). */
+export function neutralFaceSvg(): string {
+  return pixelSvg(NEUTRAL_FACE, { f: FACE, o: '#05050c' })
+}
+
+/** Cara llorando `;-;` (ojos cerrados con lágrimas y boca abierta). */
+export function cryingFaceSvg(): string {
+  return pixelSvg(CRYING_FACE, { f: FACE, o: '#05050c', t: '#8ef7ff' })
+}
 
 const HEART = [
   '.wo.....oo.',
@@ -51,14 +81,6 @@ const HEART = [
   '....ooo....',
   '.....o.....',
 ]
-
-/** Cara triste 8-bit (rellena y con gesto hacia abajo). */
-export function sadFaceSvg(): string {
-  return pixelSvg(SAD_FACE, {
-    f: 'var(--cyan, #38e8ff)',
-    o: '#05050c',
-  })
-}
 
 /** Corazón 8-bit rojo. */
 export function heartSvg(): string {
